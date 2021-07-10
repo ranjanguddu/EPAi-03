@@ -12,12 +12,6 @@ import random
 import pandas as pd
 
 
-fake = Faker('en_IN')   
-random_profile = namedtuple('Profile', ['name', 'age', 'sex', 'blood_group', 'location'])
-
-
-# calculate the age of the person
-find_age = lambda birthdate: int((date.today() - birthdate).days / 365)
 
 # REPEAT DECORATOR
 def repeat(n: int):
@@ -34,8 +28,8 @@ def repeat(n: int):
 				total_elapsed += (perf_counter() - start)
 
 			avg_run_time = total_elapsed / n
-			print(f'Average Run time of {fn.__name__} is : {avg_run_time} for {n} reps.')
-			return result
+			#print(f'Average Run time of {fn.__name__} is : {avg_run_time} for {n} reps.')
+			return result, avg_run_time
 		return inner
 	return timed
 
@@ -46,6 +40,11 @@ def generate_random_profile(n: int):
 	"""
 	This function suppose to generate n no of random profile using named Dictionary
 	"""
+	fake = Faker('en_IN')   
+	random_profile = namedtuple('Profile', ['name', 'age', 'sex', 'blood_group', 'location'])
+	# calculate the age of the person
+	find_age = lambda birthdate: int((date.today() - birthdate).days / 365)
+
 	blood_type = defaultdict(lambda : 0)
 	#print(f'blood type:{blood_type}')
 	for _ in range(n):
@@ -62,7 +61,7 @@ def generate_random_profile(n: int):
 	return f'average age:{av_age} years,oldest one is of {oldest} years, mean location:{mean_loaction}, largest_blood:{largest_blood_group}'
 
 # res = generate_random_profile(1000)
-# print(res)
+# print(res[1])
 
 
 
@@ -77,6 +76,11 @@ def generate_random_profile_dicts(n: int):
 	"""
 	This function suppose to generate n no of random profile using Dictionary
 	"""
+	fake = Faker('en_IN')   
+	random_profile = namedtuple('Profile', ['name', 'age', 'sex', 'blood_group', 'location'])
+	# calculate the age of the person
+	find_age = lambda birthdate: int((date.today() - birthdate).days / 365)
+
 	for _ in range(n):
 		profile_dict =  defaultdict(lambda :0)
 		fake_prof = fake.profile()
@@ -100,7 +104,7 @@ def generate_random_profile_dicts(n: int):
 
 	#print(profile_list_dict)
 # res = generate_random_profile_dicts(1000)
-# print(res)
+# print(res[1])
 
 #3. Create fake data (you can use Faker for company names) for imaginary stock exchange for top 100 companies (name, symbol, open, high, close). Assign a random weight to all the companies. Calculate and show what value the stock market started at, what was the highest value during the day, and where did it end. Make sure your open, high, close are not totally random.
 
@@ -111,7 +115,7 @@ company_stock_profiles = []
 
 def stock_exchange(n):
 	""" This function suppose to generate n no of company's fake profile """
-	
+	fake = Faker('en_IN')
 	for _ in range(n):
 		name =  fake.company()
 		symbol= symbol_generator(name)
@@ -147,6 +151,7 @@ def stock_exchange(n):
 	return stock.append(Total)
 		
 
-res = stock_exchange(5)
-print(res)
+
+#res = stock_exchange(100)
+#print(res[1], res[2],res[3], res[4])
 
